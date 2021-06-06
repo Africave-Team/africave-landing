@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Email Validation - Africave</title>
+    <link rel="stylesheet" href="../css/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="../css/welcome.scss" />
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Didact+Gothic|Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/welcome.css" />
+
+    <link rel="stylesheet" href="../css/notify-ajustments.css" />
+    <script src="../jquery-UI/jquery.min.js"></script>
+
+    <!-- jquery-ui -->
+    <link rel="stylesheet" href="../jquery-UI/jquery-ui.min.css" />
+    <script src="../jquery-UI/jquery-ui.min.js"></script>
+
+    <!-- notify -->
+    <script src="../jquery-UI/jquery.min.js"></script>
+    <script src="../notify-ui/notify.min.js"></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://secure.kota3chat.com/js/187659.js"
+    ></script>
+    <noscript
+      ><img
+        alt=""
+        src="https://secure.kota3chat.com/187659.png"
+        style="display: none;"
+    /></noscript>
+    <div class="main">
+      <a href="../index" class="logo restricted-width">
+        <img src="../img/logo.png" alt="" srcset="" />
+      </a>
+
+      <div class="yay-form-rapper">
+        <div class="yay">
+          <div class="txt">
+            <h2 class="heading js-heading">Confirm Your Email</h2>
+            <p class="js-message">
+              Please take a moment to verify your email address. We sent an
+              email with a verification link to
+              <strong class="js-email">...</strong>
+            </p>
+            <p class="js-resend-container">
+              Email verification link expired?, Didn't get the mail?
+              <button
+                style="cursor: pointer;"
+                class="co-blue"
+                onClick="Resend()"
+              >
+                Resend it
+              </button>
+            </p>
+          </div>
+          <img src="../img/emailVerification.png" class="side-image" />
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+
+    <script>
+      const AfricaveLoginData = JSON.parse(
+        localStorage.getItem("AfricaveLoginData")
+      );
+      let autToken = getQueryParams("token", window.location.href);
+      let email;
+
+      if (AfricaveLoginData["data"]) {
+        email = AfricaveLoginData["data"]["email"];
+        email = AfricaveLoginData.data.email;
+        autToken = AfricaveLoginData.data.token;
+        autToken = `${AfricaveLoginData.data.token_type} ${autToken}`;
+      } else if (AfricaveLoginData.authentication) {
+        email = AfricaveLoginData.authentication.email;
+        autToken = AfricaveLoginData.authentication.token;
+        autToken = `${AfricaveLoginData.authentication.token_type} ${autToken}`;
+        console.log(autToken);
+      }
+      document.querySelector(".js-email").innerText = email;
+
+      const notifyOptions = {
+        showDuration: 200,
+        hideDuration: 100,
+      };
+      $.notify.defaults(notifyOptions);
+
+      fetch(autUserDetails, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${autToken}`,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((obj) => {
+          // console.log(obj);
+          if (obj.success === "false" || obj.success === false) {
+            $.notify(`${obj.message}`, "error-alert");
+          } else if (obj.success === "true" || obj.success === true) {
+            $.notify(`Validation Successful`, "success-alert");
+            setTimeout(() => {
+              window.location.href = "../login";
+            }, 500);
+          }
+        });
+
+      const Resend = () => {
+        console.log("resending...");
+        fetch(apiServer + "/email/confirmation/resend", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((obj) => {
+            // console.log(obj);
+            if (obj.success === "false" || obj.success === false) {
+              $.notify(`${obj.message}`, "error-alert");
+            } else if (obj.success === "true" || obj.success === true) {
+              $.notify(`Email resent`, "success-alert");
+              // setTimeout(() => {
+              //   window.location.href = "../login";
+              // }, 500);
+            }
+          });
+      };
+    </script>
+  </body>
+</html>

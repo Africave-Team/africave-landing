@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Email Validation - Africave</title>
+    <link rel="stylesheet" href="../css/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="../css/welcome.scss" />
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Didact+Gothic|Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/welcome.css" />
+
+    <link rel="stylesheet" href="../css/notify-ajustments.css" />
+    <script src="../jquery-UI/jquery.min.js"></script>
+
+    <!-- jquery-ui -->
+    <link rel="stylesheet" href="../jquery-UI/jquery-ui.min.css" />
+    <script src="../jquery-UI/jquery-ui.min.js"></script>
+
+    <!-- notify -->
+    <script src="../jquery-UI/jquery.min.js"></script>
+    <script src="../notify-ui/notify.min.js"></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://secure.kota3chat.com/js/187659.js"
+    ></script>
+    <noscript
+      ><img
+        alt=""
+        src="https://secure.kota3chat.com/187659.png"
+        style="display: none;"
+    /></noscript>
+    <div class="main">
+      <a href="../index" class="logo restricted-width">
+        <img src="../img/logo.png" alt="" srcset="" />
+      </a>
+
+      <div class="yay-form-rapper">
+        <div class="yay">
+          <div class="txt">
+            <h2 class="heading js-heading">Confirm Your Email</h2>
+            <p class="js-message">
+              Loading...
+            </p>
+            <!-- <p class="js-resend-container">
+              Email verification link expired?, Didn't get the mail?
+              <a class="co-blue">Resend it</a>
+            </p> -->
+          </div>
+          <img src="../img/emailVerification.png" class="side-image" />
+        </div>
+      </div>
+    </div>
+    <script src="../js/common.js"></script>
+
+    <script>
+      const messageNode = document.querySelector(".js-message");
+      const heading = document.querySelector(".js-heading");
+
+      const autToken = getQueryParams("token", window.location.href);
+      let email;
+      const notifyOptions = {
+        showDuration: 200,
+        hideDuration: 100,
+      };
+
+      $.notify.defaults(notifyOptions);
+
+      if (autToken) {
+        fetch(`${emailConfirmation}?token=${autToken}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${autToken}`,
+          },
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((obj) => {
+            // console.log(obj);
+            email = obj.email;
+            if (obj.success === false) {
+              heading.innerHTML = `Oops!`;
+              messageNode.innerHTML = `${obj.message} <br/> <a type="button" onclick="resendConfirmation()" class="btn">Request new link now</a>`;
+            } else {
+              messageNode.innerHTML = `${obj.message} <br/> <a href="../login" class="btn">Login Here</a>`;
+            }
+          });
+      }
+
+      const resendConfirmation = () => {
+        fetch(`${emailConfirmation}/resend`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email }),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((obj) => {
+            // console.log(obj);
+          });
+      };
+    </script>
+  </body>
+</html>

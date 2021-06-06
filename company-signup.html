@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Company Signup - Africave</title>
+    <link rel="stylesheet" href="./css/fonts/stylesheet.css" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./jquery-UI/jquery.min.js"></script>
+    <script src="./notify-ui/notify.min.js"></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://secure.kota3chat.com/js/187659.js"
+    ></script>
+    <noscript
+      ><img
+        alt=""
+        src="https://secure.kota3chat.com/187659.png"
+        style="display: none;"
+    /></noscript>
+    <div class="main">
+      <div class="image-section">
+        <div class="text-holder">
+          <h1>
+            Hire Bold Engineers.
+            <br>
+            Build Projects.
+          </h1>
+        </div>
+        <img
+          src="https://res.cloudinary.com/africave/image/upload/v1579871384/christina-wocintechchat-com-FPQlXQtjkqU-unsplash_vq4ana.jpg"
+          alt=""
+          class="bg-image"
+        />
+      </div>
+      <div class="form-container">
+        <nav class="main-navigation">
+          <a href="./index.html" class="logo"><img src="./img/logo.png" alt="" /></a>
+
+          <div class="dsk-links">
+            <a href="./developer-signup" class="co-blue"
+              >Are you a Developer?</a
+            >
+          </div>
+          <button class="burger-btn js-burger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="mbl-menu-rapper">
+            <div class="mbl-menu">
+              <a href="./login" class="co-blue">Log In</a>
+              <a href="./developer-signup" class="bg-blue">Work as a Developer</a>
+            </div>
+          </div>
+        </nav>
+        <div class="form-rapper short-form">
+          <div class="odr-means">
+            <h2 class="heading">Sign Up to Africave</h2>
+          </div>
+          <form id="main-form">
+            <div class="check-box-container js-dashboard-types-container">
+              <span class="check-box-rapper strk">
+                <input
+                  type="radio"
+                  name="dashboard_type"
+                  value="1"
+                  class="check-box"
+                  required
+                />
+                <span class="border"></span>
+                <span class="custom-check-box-rapper">
+                  <span class="custom-check-box type-radio"></span>
+                </span>
+                <span class="title"
+                  >Hire Engineers
+                  <span class="description"
+                    >Software Developers, DevOps ...</span
+                  >
+                </span>
+              </span>
+              <span class="check-box-rapper strk">
+                <input
+                  type="radio"
+                  name="dashboard_type"
+                  value="2"
+                  class="check-box"
+                  required
+                />
+                <span class="border"></span>
+                <span class="custom-check-box-rapper">
+                  <span class="custom-check-box type-radio"> </span></span
+                ><span class="title"
+                  >Build A Project
+                  <span class="description">Digital Project, IT Project ...</span>
+                </span>
+              </span>
+            </div>
+            <p class="form-errors"></p>
+            <div class="loader-cont">
+              <input
+                class="bg-blue-button js-submit"
+                type="submit"
+                value="Proceed"
+              />
+              <span class="loader"></span>
+            </div>
+          </form>
+          <p class="alrd">
+            Already have an account ? <a href="./login">Log In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/signup.js"></script>
+    <script>
+      document.querySelector("#main-form").addEventListener("submit", (ev)=>{
+        if(ev.currentTarget.dashboard_type.value == 1) {
+          window.location.href = "hire-engineer"
+        }
+        else if(ev.currentTarget.dashboard_type.value == 2) {
+          window.location.href = "build-project"
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "africave",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "copy-dir": "^1.3.0",
+    "react-files": "^3.0.0-alpha.1",
+    "react-search-input": "^0.11.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cd dashboard/developer-dashoard/africave-developer/app && npm run start",
+    "client": "cd dashboard/client-dashboard/africave-client/app && npm run start",
+    "admin": "cd dashboard/admin-dashboard/africave-admin/app && npm run start",
+    "dev-build": "cd dashboard/developer-dashoard/africave-developer/app && npm run build",
+    "client-build": "cd dashboard/client-dashboard/africave-client/app && npm run build",
+    "admin-build": "cd dashboard/admin-dashboard/africave-admin/app && npm run build",
+    "copydir": "npm run dev-build && npm run client-build && npm run admin-build && cd dashboard && node copydir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/africave/frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/africave/frontend/issues"
+  },
+  "homepage": "https://gitlab.com/africave/frontend#readme"
+}

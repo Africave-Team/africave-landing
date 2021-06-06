@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login - Africave</title>
+    <link rel="stylesheet" href="./css/fonts/stylesheet.css" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./jquery-UI/jquery.min.js"></script>
+    <script src="./notify-ui/notify.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="image-section">
+        <div class="text-holder">
+          <h1>
+            Hello <br />
+            we missed you.
+          </h1>
+        </div>
+        <img src="./img/onewomancoding.jpg" alt="" class="bg-image" />
+      </div>
+      <div class="form-container">
+        <nav class="main-navigation">
+          <a href="./index" class="logo"><img src="./img/logo.png" alt="" /></a>
+
+          <div class="dsk-links">
+            <a href="./developer-signup" class="co-blue"
+              >Sign up as a Developer</a
+            >
+          </div>
+          <button class="burger-btn js-burger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="mbl-menu-rapper">
+            <div class="mbl-menu">
+              <a href="./login" class="co-blue">Login</a>
+              <a href="./developer-signup" class="bg-blue">For Developer</a>
+            </div>
+          </div>
+        </nav>
+        <div class="form-rapper short-form">
+          <div class="odr-means">
+            <h2 class="heading">Welcome Back</h2>
+          </div>
+          <form id="main-form">
+            <input
+              type="email"
+              class="borderd-input js-email"
+              placeholder="Email address"
+              spellcheck="false"
+              required
+              id="email"
+            />
+            <p class="email-errors">
+              <!-- <span class="is-error">An error occured</span> -->
+            </p>
+            <input
+              type="password"
+              class="borderd-input js-password"
+              placeholder="Enter password"
+              required
+              id="password"
+            />
+            <p class="password-errors"></p>
+            <div class="loader-cont">
+              <input
+                class="bg-blue-button js-submit"
+                type="submit"
+                value="Login"
+              />
+              <span class="loader"></span>
+            </div>
+          </form>
+          <p class="alrd">
+            Don't have an account yet?
+            <a href="./company-signup.html"> Sign up as a Company</a>
+          </p>
+          <p class="alrd">
+            <a href="./forgot-password.html" class="co-blue"
+              >Forgot password?</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script>
+      let africaveLoginData;
+      if (JSON.parse(localStorage.getItem("AfricaveLoginData"))) {
+        let africaveLoginData = JSON.parse(
+          localStorage.getItem("AfricaveLoginData")
+        ).authentication;
+        const role = africaveLoginData.role;
+        if (africaveLoginData.token && africaveLoginData.token_type && role) {
+          const authToken = `${africaveLoginData.token_type} ${africaveLoginData.token}`;
+          //attempt to get user's details
+          // console.log(role);
+          // console.log(authToken);
+
+          const options = {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: authToken,
+            },
+          };
+          fetch(autUserDetails, options)
+            .then((res) => res.json())
+            .then((obj) => {
+              if (obj.success === true) {
+                if (role === "company") {
+                  $.notify("Currently Logged in as Client", "success-alert");
+                  setTimeout(() => {
+                    window.location.href = `${dashboards.client}`;
+                  }, 300);
+                } else if (role === "developer") {
+                  $.notify("Currently Logged in as Developer", "success-alert");
+                  setTimeout(() => {
+                    window.location.href = `${dashboards.developer}`;
+                  }, 300);
+                } else if (role === "admin") {
+                  $.notify("Currently Logged in as Admin", "success-alert");
+                  setTimeout(() => {
+                    window.location.href = `${dashboards.admin}`;
+                  }, 300);
+                }
+              }
+            });
+        }
+      }
+    </script>
+    <script src="./js/signup.js"></script>
+    <script>
+      //getting form
+      let form = document.querySelector("#main-form");
+
+      //getting input nodes...
+      let emailInputNode = form.querySelector(".js-email");
+      let passwordInputNode = form.querySelector(".js-password");
+
+      //getting submit button...
+      let submitBtn = form.querySelector(".js-submit");
+
+      //getting errors node...
+      let emailErrorsNode = form.querySelector(".email-errors");
+      let passwordErrorsNode = form.querySelector(".password-errors");
+
+      const notifyOptions = {
+        autoHide: false,
+        showDuration: 200,
+        hideDuration: 100,
+      };
+      $.notify.defaults(notifyOptions);
+
+      form.addEventListener("submit", () => {
+        [emailErrorsNode, passwordErrorsNode].forEach(
+          (e) => (e.innerHTML = "")
+        );
+        const loginData = {
+          email: emailInputNode.value,
+          password: passwordInputNode.value,
+        };
+        // console.log(loginData)
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        };
+        form.querySelector(".js-submit").classList.add("hide");
+        fetch(loginEndpoint, options)
+          .then(
+            (res) => {
+              return res.json();
+            },
+            (fail) => {
+              $.notify("We couldn't log you in", "error-alert");
+            }
+          )
+          .then((obj) => {
+            form.querySelector(".js-submit").classList.remove("hide");
+
+            //if user is verified and success is true...
+            if (obj.success === true && obj.authentication.verified === true) {
+              console.log(obj);
+              localStorage.setItem("AfricaveLoginData", JSON.stringify(obj));
+              // console.log(obj.authentication)
+              if (obj.authentication.role === "company") {
+                $.notify("Logged in as Client", "success-alert");
+                window.location.href = `${dashboards.client}`;
+              } else if (obj.authentication.role === "developer") {
+                $.notify("Logged in as Developer", "success-alert");
+                window.location.href = `${dashboards.developer}`;
+              } else if (obj.authentication.role === "admin") {
+                $.notify("Logged in as Admin", "success-alert");
+                window.location.href = `${dashboards.admin}`;
+              }
+            } else {
+              if (obj.password) {
+                obj.password.forEach((error) => {
+                  passwordErrorsNode.innerHTML += `<span class="is-error">${error}</span>`;
+                });
+              }
+              if (obj.email) {
+                obj.email.forEach((error) => {
+                  emailErrorsNode.innerHTML += `<span class="is-error">${error}</span>`;
+                });
+              }
+              if (obj.error) {
+                passwordErrorsNode.innerHTML += `<span class="is-error">${obj.error}</span>`;
+              }
+            }
+            //if user is not verified but success is true
+            // console.log(obj.authentication.verified)
+            if (obj.authentication.verified === false) {
+              // console.log("user not verified");
+              localStorage.setItem("AfricaveLoginData", JSON.stringify(obj));
+              window.open(`email/validate`);
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

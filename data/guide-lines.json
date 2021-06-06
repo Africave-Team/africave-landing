@@ -1,0 +1,34 @@
+{
+  "1": {
+    "title": "1. Scope of Work",
+    "text1": {
+      "type": "paragraph",
+      "text": "We work together to build a detailed scope of work to help us select talent."
+    },
+    "text2": {
+      "type": "paragraph",
+      "text": ""
+    }
+  },
+  "2": {
+    "title": "2. Initial Conversation",
+    "text1": {
+      "type": "paragraph",
+      "text": "You provide more information about the role, scope of work, talent requirements and company tech stack."
+    }
+  },
+  "3": {
+    "title": "3. Talent Assesment",
+    "text1": {
+      "type": "paragraph",
+      "text": "Africave zooms into a bucket of extremely well-calibrated talent and finds candidates fit for role ."
+    }
+  },
+  "4": {
+    "title": "4. Onboarding",
+    "text1": {
+      "type": "paragraph",
+      "text": "Onboarding, with the first two weeks as a zero-risk probation period. If you do not like the talent quality, you do not pay for this time."
+    }
+  }
+}

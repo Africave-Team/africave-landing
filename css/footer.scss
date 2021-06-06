@@ -1,0 +1,176 @@
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+@import "./common.scss";
+
+@mixin phone {
+  @media (max-width: 568px) {
+    @content;
+  }
+}
+@mixin miniLaptopnTab {
+  @media (max-width: 1110px) and (min-width: 767px) {
+    @content;
+  }
+}
+@mixin allTabs {
+  @media (max-width: 980px) and (min-width: 567px) {
+    @content;
+  }
+}
+
+@mixin bigTabs {
+  @media (max-width: 993px) and (min-width: 767px) {
+    @content;
+  }
+}
+
+@mixin specialTabs {
+  @media (max-width: 897px) {
+    @content;
+  }
+}
+
+.main-footer {
+  background: #273773;
+  padding: 0 60px;
+  // margin: 0 -60px;
+  @include mobile {
+    padding: 0 20px !important;
+    margin: 0 !important;
+  }
+  p,
+  span,
+  h1,
+  h2,
+  a {
+    color: #fff;
+  }
+  .footer-rapper {
+    margin: 0 auto;
+    padding: 80px 0 35px 0;
+    .lsec {
+      max-width: 23.5pc;
+      width: 100%;
+    }
+    .big-text-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      > div {
+        margin-bottom: 20px;
+      }
+      .big-text-rapper {
+        .big-text {
+          line-height: 1.3;
+          font-size: 190%;
+          &:first-of-type {
+            color: #8bd8bd;
+          }
+        }
+      }
+      .contacts-rapper {
+        .card {
+          background: #ffff;
+          padding: 10px 30px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          width: fit-content;
+          box-shadow: 0px 1px 10px #0000001e;
+          flex-wrap: wrap;
+          @include mobile {
+            padding: 15px 30px;
+          }
+          p {
+            color: #333333;
+            font-family: "aeonikmedium", Arial, Helvetica, sans-serif;
+          }
+          .contacts {
+            margin: 5px 0;
+            &:nth-child(odd) {
+              margin: 5px 30px 5px 0;
+            }
+            p {
+              color: #000;
+              line-height: 1.4;
+            }
+            .dtail {
+              font-size: 110%;
+              font-weight: 900;
+              opacity: 0.7;
+            }
+            .heading {
+              opacity: 0.3;
+              font-size: 90%;
+              margin: 5px 0;
+            }
+          }
+        }
+      }
+    }
+    .links-container {
+      margin: 35px 0 0 0;
+      display: flex;
+      align-items: flex-start;
+      @include mobile() {
+        flex-wrap: wrap;
+      }
+      .logo,
+      .links-rapper {
+        margin-bottom: 20px;
+      }
+      .logo {
+        margin-bottom: 30px;
+        img {
+          height: 50px;
+        }
+      }
+
+      .links-rapper {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .links {
+          // padding: 0 120px 20px 0;
+          margin: 0 100px 30px 0;
+
+          @include mobile() {
+            width: unset;
+            padding: 30px 30px 0 0;
+          }
+          .heading {
+            font-weight: 900;
+            font-family: "aeonikregular", Arial, Helvetica, sans-serif;
+            margin-bottom: 10px;
+          }
+          p,
+          a {
+            margin: 0 0 7px 0;
+          }
+          .social-media {
+            display: flex;
+            align-items: center;
+            a {
+              margin-right: 20px;
+            }
+          }
+          a {
+            display: block;
+            width: fit-content;
+            opacity: 0.9;
+            font-weight: 400;
+            img {
+              width: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+        color: #2d2d2d;
+        line-height: 1.7;
+        font-size: 18px;
+        text-decoration: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      h2 {
+        font-family: "Oswald", sans-serif;
+
+        margin: 20px 0;
+      }
+      .main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 55px 131px;
+        box-sizing: border-box;
+        position: relative;
+      }
+      .main:after {
+        content: "";
+        position: absolute;
+        height: 1px;
+        background: #e4e4e4;
+        width: calc(100% - 262px);
+        bottom: 0;
+        left: 131px;
+      }
+      .norm {
+        color: #464545;
+      }
+      .blue-btn {
+        line-height: 1.2;
+        padding: 18px 78px;
+        display: inline-block;
+        background-color: #273773;
+        color: #fff;
+        border-radius: 5px;
+        margin: 40px 0 0 0;
+      }
+      .logo img {
+        height: 35px;
+      }
+      .svg {
+        width: 475px;
+        margin: 60px auto;
+        display: block;
+      }
+      h2 {
+        line-height: 1.3;
+        font-size: 231%;
+      }
+      @media (max-width: 900px) {
+        .svg {
+          width: 100%;
+        }
+        .main {
+          padding: 55px 20px;
+        }
+        .blue-btn {
+          padding-left: 20px;
+          padding-right: 20px;
+          text-align: center;
+        }
+        .main:after {
+          width: calc(100% - 40px);
+          left: 20px;
+        }
+      }
+      .link {
+        text-decoration: underline;
+        color: #273773;
+      }
+      .btns {
+        display: flex;
+        justify-content: space-between;
+      }
+      .btns a {
+        width: 36%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="logo">
+        <img src="https://i.ibb.co/VpX964W/logo.png" alt="" srcset="" />
+      </div>
+
+      <img src="https://i.ibb.co/Xz9qvt8/company.png" alt="" class="svg" />
+
+      <p class="norm">
+        Hi Lanre,
+      </p>
+      <h2>Welcome to the family</h2>
+      <p class="norm">
+        I really appreciate you signing up for Craftingemails, and I'm sure
+        you'll love it when you see how easy it is to get the right things done.
+        <br />
+        <br />
+        We built Samu to help individuals (from managers via freelancers through
+        to students) improve their productivity, and I hope that we can achieve
+        that for you.
+        <br />
+        <br />
+        If you wouldn’t mind, I’d love it if you answered one quick question:
+        why did you sign up for Samu?
+      </p>
+      <a href="#" class="blue-btn">Sign in to your account</a>
+
+      <!-- accept and reject buttons here -->
+      <div class="btns">
+        <a href="#" class="blue-btn" style="background: #4caf50;">Accept</a>
+        <a href="#" class="blue-btn" style="background: tomato;">Reject</a>
+      </div>
+      <!-- accept and reject buttons end -->
+      
+    </div>
+    <div class="main footer">
+      <p class="norm">
+        If you did not sign up for this account you can ignore this email and
+        the account will be deleted.
+
+        <br />
+        <br />© 2020 Africave. All rights reserved. You received this email
+        because you signed up for an app that helps you create your emails, To
+        update your emails subscription preferences
+        <a href="#" class="link">click here</a>.
+      </p>
+    </div>
+  </body>
+</html>

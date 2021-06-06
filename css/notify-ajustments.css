@@ -1,0 +1,79 @@
+body .notifyjs-corner {
+  bottom: 10px !important;
+  top: unset !important;
+  left: 50% !important;
+  right: unset !important;
+  -webkit-transform: translate(-50%, 0) !important;
+          transform: translate(-50%, 0) !important;
+}
+
+body .notifyjs-bootstrap-error-alert {
+  max-width: 30pc;
+  width: 100%;
+  background-color: #d63a3a;
+  white-space: normal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 20px 15px -15px rgba(134, 134, 134, 0.18);
+          box-shadow: 0 20px 15px -15px rgba(134, 134, 134, 0.18);
+  border-radius: 5px;
+  border: 0;
+}
+
+body .notifyjs-bootstrap-error-alert:before {
+  content: "";
+  height: 40px;
+  width: 40px;
+  margin: 0 20px 0 0;
+  background-image: url("../img/alert.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+body .notifyjs-bootstrap-error-alert [data-notify-text] {
+  line-height: 1.3;
+  color: white;
+  width: calc(100% - 40px);
+  font-size: 75%;
+}
+
+body .notifyjs-bootstrap-success-alert {
+  max-width: 30pc;
+  width: 100%;
+  background-color: #17a95bde;
+  white-space: normal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 20px 15px -15px rgba(134, 134, 134, 0.18);
+          box-shadow: 0 20px 15px -15px rgba(134, 134, 134, 0.18);
+  border-radius: 5px;
+  border: 0;
+}
+
+body .notifyjs-bootstrap-success-alert:before {
+  content: "";
+  height: 40px;
+  width: 40px;
+  margin: 0 10px 0 0;
+  background-image: url("../img/checked.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+body .notifyjs-bootstrap-success-alert [data-notify-text] {
+  line-height: 1.3;
+  color: #fff;
+  width: calc(100% - 40px);
+  font-size: 80%;
+}
+/*# sourceMappingURL=notify-ajustments.css.map */

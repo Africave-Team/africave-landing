@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Developer Signup - Africave</title>
+    <link rel="stylesheet" href="./css/fonts/stylesheet.css" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./jquery-UI/jquery.min.js"></script>
+    <script src="./notify-ui/notify.min.js"></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://secure.kota3chat.com/js/187659.js"
+    ></script>
+    <noscript
+      ><img
+        alt=""
+        src="https://secure.kota3chat.com/187659.png"
+        style="display: none;"
+    /></noscript>
+    <div class="main">
+      <div class="image-section">
+        <div class="text-holder">
+          <h1>
+            Take your career to the next step with leading global companies.
+          </h1>
+        </div>
+        <img
+          src="https://res.cloudinary.com/africave/image/upload/v1578712317/etty-fidele-41Is0o6JMBk-unsplash_yy1iv3.jpg"
+          alt=""
+          class="bg-image"
+        />
+      </div>
+      <div class="form-container">
+        <nav class="main-navigation">
+          <a href="./index" class="logo"><img src="./img/logo.png" alt="" /></a>
+
+          <div class="dsk-links">
+            <a href="./company-signup" class="co-blue">Sign up as a Company</a>
+          </div>
+          <button class="burger-btn js-burger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="mbl-menu-rapper">
+            <div class="mbl-menu">
+              <a href="./login" class="co-blue">login</a>
+              <a href="./company-signup" class="bg-blue">For Companies</a>
+            </div>
+          </div>
+        </nav>
+        <div class="form-rapper short-form">
+          <div class="odr-means">
+            <h2 class="heading">Sign Up to Africave</h2>
+          </div>
+
+          <form id="main-form">
+            <input
+              type="text"
+              class="borderd-input js-first-name"
+              placeholder="First Name"
+              spellcheck="false"
+              autofocus="true"
+              required
+            />
+            <p class="firstname-errors errors">
+              <!-- <span class="is-error">An error occured</span> -->
+            </p>
+            <input
+              type="text"
+              class="borderd-input js-last-name"
+              placeholder="Last Name"
+              spellcheck="false"
+              required
+            />
+            <p class="lastname-errors errors"></p>
+            <input
+              type="email"
+              class="borderd-input js-email"
+              placeholder="Email"
+              spellcheck="false"
+              required
+            />
+            <p class="email-errors errors"></p>
+            <input
+              type="number"
+              class="borderd-input js-number"
+              placeholder="Phone Number"
+              spellcheck="false"
+              required
+            />
+            <p class="number-errors errors"></p>
+            <div class="loader-cont">
+              <input
+                class="bg-blue-button js-submit"
+                type="submit"
+                value="Proceed"
+              />
+              <span class="loader"></span>
+            </div>
+          </form>
+          <p class="alrd">
+            Already have an account? <a href="./login">Log In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/signup.js"></script>
+    <script>
+      const email = document.querySelector(".js-email");
+      const number = document.querySelector(".js-number");
+      const first_name = document.querySelector(".js-first-name");
+      const last_name = document.querySelector(".js-last-name");
+
+      let lastNameErrorsNode = document.querySelector(".lastname-errors");
+      let fistNameErrorsNode = document.querySelector(".firstname-errors");
+
+      const notifyOptions = {
+        showDuration: 200,
+        hideDuration: 100,
+      };
+      $.notify.defaults(notifyOptions);
+
+      document.querySelector("#main-form").addEventListener("submit", () => {
+        // window.location.href = "developer-on-boarding"
+        document.querySelectorAll(".errors").forEach((e) => (e.innerHTML = ""));
+        const btn = document.querySelector(".js-submit");
+        btn.classList.add("hide");
+        const data = {
+          email: email.value.trim(),
+          phone_number: number.value,
+          first_name: first_name.value.trim(),
+          last_name: last_name.value.trim(),
+        };
+        fetch(devStepOneValidation, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then(
+            (res) => {
+              return res.json();
+            },
+            (fail) => {
+              btn.classList.remove("hide");
+              $.notify(
+                `We couldn't connect to our server`,
+                "error-alert"
+              );
+            }
+          )
+          .then((obj) => {
+            // console.log(obj);
+            btn.classList.remove("hide");
+            if (obj.success) {
+              localStorage.setItem(
+                "Developer_stepOne_data",
+                JSON.stringify(data)
+              );
+              $.notify(`${obj.message}`, "success-alert");
+              window.location.href = "developer-on-boarding";
+            }
+            //handling errors ...
+            if (obj.email) {
+              obj.email.forEach((error) => {
+                document.querySelector(
+                  ".email-errors"
+                ).innerHTML += `<span class="is-error">${error}</span>`;
+              });
+           
+            }
+            if(obj.last_name){
+              obj.last_name.forEach(error=> {lastNameErrorsNode.innerHTML+= `<span class="is-error">${error}</span>`})
+            }
+            if(obj.first_name){
+              obj.first_name.forEach(error=> {fistNameErrorsNode.innerHTML+= `<span class="is-error">${error}</span>`})
+            }
+            if(obj.phone_number){
+              obj.phone_number.forEach((error) => {
+                document.querySelector(
+                  ".number-errors"
+                ).innerHTML += `<span class="is-error">${error}</span>`;
+              });
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
